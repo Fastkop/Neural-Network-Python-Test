@@ -1,6 +1,3 @@
-import numpy
-<<<<<<< HEAD
-import math
 import string
 import random
 import operator
@@ -8,12 +5,12 @@ import operator
 class gene:
 
   def __init__(self,num):
-    self.chars= ''.join(random.choice(string.ascii_uppercase+string.ascii_lowercase)for _ in range(num))
+    self.chars= ''.join(random.choice(string.ascii_lowercase)for _ in range(num))
     self.fittness=0;
 
 population=20
 target="Ahmad"
-genes = [gene(5) for _ in xrange(population)]
+genes = [gene(5) for _ in range(population)]
 
 def ranking():
   for Gene in genes:
@@ -23,22 +20,38 @@ def ranking():
 
 def survival():
    genes.sort(key=operator.attrgetter('fittness'),reverse=True)
+   print(genes[0].chars)
+   if (genes[0].chars=="ahmad"):
+    exit()
+
+def rePop(genes):
+  genes=genes[:4]
+  pop=0
+  offspring=[]
+  for i in range(4):
+    for j in range(4):
+      offspring.append(genes[i].chars[:3]+genes[j].chars[3:])
+      offspring.append(genes[j].chars[:3]+genes[i].chars[3:])
+  genes=genes+offspring
+  ranking()
+  survival()
+  genes=genes[:20]
+
+def mutation():
+  temp=""
+  for g in genes:
+    for i in range(5):
+      if(random.randint(1,100)<=3):
+        temp+=random.choice(string.ascii_lowercase)
+      else:
+        temp+= g.chars[i]
+    g.chars= temp
+
+for i in range(100):
+  print(i)
+  ranking()
+  survival()
+  rePop(genes)
+  mutation()
 
 
-
-
-=======
-
-def color(m1,m2,w1,w2,b):
-  z= m1*w1+m2*w2+b
-  return seg(z)
-
-def seg(y):
-  return 1/(1+numpy.exp(-y))
-
-w1= numpy.random.randn()
-w2= numpy.random.randn()
-b= numpy.random.randn()
-
-print(color(2,2.5,w1,w2,b))
->>>>>>> dcd9143372863beb6cc55403fcc8983273c3ae0e
